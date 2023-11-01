@@ -1,13 +1,16 @@
 import express from "express";
 import cors from "cors";
+import pool from "./conexionDB.js";
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-app.get("", (req, res)=>{
-    res.json({atributo: "<h1> Hola! </h1>"});
+app.get("", async (req, res)=>{
+    const [resultado] = await pool.query("SELECT * FROM producto");
+    console.log(resultado);
+    res.json(resultado);
 });
 
 app.get("/api", (req, res)=>{
@@ -15,9 +18,11 @@ app.get("/api", (req, res)=>{
     res.send(`<h1> Hola 2! ${req.query.param3}</h1>`);
 });
 
-app.get("/api/:id", (req, res)=>{
+app.get("/api/:id", async (req, res)=>{
     console.log(req.params);
-    res.send(`<h1> Hola 3! ${req.params.id}</h1>`);
+    const [resultado] = await pool.query("SELECT * FROM producto WHERE id = ?", req.params.id);
+
+    res.json(resultado);
 });
 
 app.post("/api", (req, res)=>{
