@@ -8,9 +8,16 @@ app.use(express.json());
 app.use(cors());
 
 app.get("", async (req, res)=>{
-    const [resultado] = await pool.query("SELECT * FROM producto");
-    console.log(resultado);
-    res.json(resultado);
+    try {
+        const [resultado] = await pool.query("SELECT * FROM producto");
+        console.log(resultado);
+        res.json(resultado);
+    } catch (error) {
+        res.status(500).json({
+            informe: "Algo salio mal",
+            error: error
+        })
+    }
 });
 
 app.get("/api", (req, res)=>{
