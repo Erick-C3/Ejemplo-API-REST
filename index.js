@@ -1,13 +1,24 @@
 import express from "express";
 import cors from "cors";
+import pool from "./conexionDB.js";
+
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-app.get("", (req, res)=>{
-    res.json({atributo: "<h1> Hola! </h1>"});
+app.get("", async (req, res)=>{
+    try {
+        const [resultado] = await pool.query("SELECT * FROM usuario");
+        console.log(resultado);
+        res.json(resultado);
+    } catch (error) {
+        res.status(500).json({
+            mensaje: "Algo salio mal",
+            error: error
+        });
+    }
 });
 
 app.get("/api", (req, res)=>{
