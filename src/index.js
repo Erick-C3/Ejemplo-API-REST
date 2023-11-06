@@ -28,13 +28,12 @@ app.get("/api", (req, res)=>{
 app.get("/api/:id", async (req, res)=>{
     console.log(req.params);
     const [resultado] = await pool.query("SELECT * FROM producto WHERE id = ?", req.params.id);
-
     res.json(resultado);
 });
 
 app.post("/api", (req, res)=>{
     console.log(req.body);
-    res.status(201).send(`<h1> POST! ${req.body[0]} </h1>`);
+    res.status(201).send(`<h1> POST! ${req.body.info2} </h1>`);
 });
 
 
