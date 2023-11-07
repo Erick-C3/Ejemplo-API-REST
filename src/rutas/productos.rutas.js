@@ -8,8 +8,8 @@ ruta.get("", productosControladores.obtenerProductos);
 /* ruta.get("/api", ); */
 ruta.get("/:id", productosControladores.obtenerProducto);
 ruta.post("", productosControladores.crearProducto);
-ruta.put("", productosControladores.actualizarProducto);
-ruta.delete("", productosControladores.eliminarProducto);
+ruta.put("/:id", productosControladores.actualizarProducto);
+ruta.delete("/:id", productosControladores.eliminarProducto);
 
 
 export default ruta;

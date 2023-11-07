@@ -57,10 +57,13 @@ async function obtenerProducto (req, res){
 
 
 
-
+/**
+ * Crea un producto
+ * @param {Object} req de la consulta
+ * @param {Object} res de la consulta
+ */
 async function crearProducto (req, res){
     const {nombre, precio, imagen} = req.body;
-
     try {
         const [info] = await pool.query(`INSERT INTO producto(nombre, precio, imagen) VALUES(?, ?, ?);`, [nombre, precio, imagen]);
         const [resultado] = await pool.query("SELECT * FROM producto WHERE id = ?;", [info.insertId]);
@@ -84,12 +87,61 @@ async function crearProducto (req, res){
 };
 
 
+/**
+ * Actualiza el producto solicitado
+ * @param {Object} req de la consulta que tiene la info a actualizar y el id
+ * @param {Object} res de la consulta informa la situacion de la respuesta
+ */
 async function actualizarProducto (req, res){
-    res.json({atributo: "<h1> PUT </h1>"});
+    const ID = req.params.id;
+    try {
+        const {nombre, precio, imagen} = req.body;
+        const [info] = await pool.query(`UPDATE producto SET nombre = ?, precio = ?, imagen = ? WHERE id = ?;`, [nombre, precio, imagen, ID]);
+        console.log(info);
+        if (info.affectedRows !== 1 || info.warningStatus) {
+            res.status(404).json({
+                info: "Error al actualizar el producto con id: "+ID
+            });
+        }else{
+            res.json({
+                info: "Producto actualizado"
+            });
+        }
+    } catch (error) {
+        res.status(500).json({
+            informe: "Algo salio mal al actualizar el producto con id:"+ID,
+            error: error
+        })
+    }
+
+
 };
 
+
+/**
+ * Elimina el producto solicitado
+ * @param {Object} req de la consulta
+ * @param {Object} res de la consulta
+ */
 async function eliminarProducto (req, res){
-    res.json({atributo: "<h1> DELETE </h1>"});
+    const ID = req.params.id;
+    try {
+        const [resultado] = await pool.query("DELETE FROM producto WHERE id = ?;", [ID]);
+        if (resultado.affectedRows !== 1) {
+            res.status(404).json({
+                info: "No se encontro el producto con id: "+ID
+            });
+        }else{
+            res.json({
+                info: "Producto con id "+ID+" eliminado"
+            });
+        }
+    } catch (error) {
+        res.status(500).json({
+            informe: "Algo salio mal",
+            error: error
+        })
+    }
 };
 
 
