@@ -17,4 +17,8 @@ INSERT INTO producto(nombre, precio, imagen) VALUES(
     "pringles", 1610, "https://carrefourar.vtexassets.com/arquivos/ids/308360-800-auto?v=638144015796400000&width=800&height=auto&aspect=true"
 );
 
+UPDATE producto SET nombre = "", precio = "", imagen = "" WHERE id = 3;
+
+DELETE FROM producto WHERE id = 5;
+
 SELECT * FROM producto;
