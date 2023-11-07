@@ -1,10 +1,22 @@
 import pool from "../conexionDB.js";
 
+/**
+ * Devuelve todos los productos de la base de dato si existen
+ * @param {Object} req de la consulta
+ * @param {Object} res de la consulta
+ */
 async function obtenerProductos (req, res){
     try {
         const [resultado] = await pool.query("SELECT * FROM producto");
-        console.log(resultado);
-        res.json(resultado);
+        if(!resultado.length){
+            res.status(404).json(
+                {
+                    mensaje: "No se encontraron productos"
+                }
+            )
+        }else{
+            res.json(resultado);
+        }
     } catch (error) {
         res.status(500).json({
             informe: "Algo salio mal",
@@ -19,10 +31,19 @@ async function obtenerProductos (req, res){
 }; */
 
 async function obtenerProducto (req, res){
-    console.log(req.params);
-    const [resultado] = await pool.query("SELECT * FROM producto WHERE id = ?", req.params.id);
-    res.json(resultado);
+    const ID = req.params.id;
+    const [resultado] = await pool.query("SELECT * FROM producto WHERE id = ?", ID);
+    if (!resultado.length) {
+        res.status(404).json({
+            info: "No se encontro el producto con id: "+ID
+        });
+    }else{
+        res.json(resultado);
+    }
 };
+
+
+
 
 async function crearProducto (req, res){
     res.status(201).json(req.body);
