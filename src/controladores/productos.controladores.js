@@ -1,7 +1,7 @@
 import pool from "../conexionDB.js";
 
 /**
- * Devuelve todos los productos de la base de dato si existen
+ * Devuelve todos los productos si existen
  * @param {Object} req de la consulta
  * @param {Object} res de la consulta
  */
@@ -32,7 +32,7 @@ async function obtenerProductos (req, res){
 
 
 /**
- * Devuelve el producto solicitado de la base de dato si existe
+ * Devuelve el producto solicitado si existe
  * @param {Object} req de la consulta
  * @param {Object} res de la consulta
  */
@@ -67,7 +67,6 @@ async function crearProducto (req, res){
     try {
         const [info] = await pool.query(`INSERT INTO producto(nombre, precio, imagen) VALUES(?, ?, ?);`, [nombre, precio, imagen]);
         const [resultado] = await pool.query("SELECT * FROM producto WHERE id = ?;", [info.insertId]);
-        console.log(info.affectedRows);
         if (info.affectedRows !== 1 || !resultado.length) {
             res.status(404).json({
                 mensaje: "Error al agregar producto"
@@ -97,7 +96,6 @@ async function actualizarProducto (req, res){
     try {
         const {nombre, precio, imagen} = req.body;
         const [info] = await pool.query(`UPDATE producto SET nombre = ?, precio = ?, imagen = ? WHERE id = ?;`, [nombre, precio, imagen, ID]);
-        console.log(info);
         if (info.affectedRows !== 1 || info.warningStatus) {
             res.status(404).json({
                 info: "Error al actualizar el producto con id: "+ID
