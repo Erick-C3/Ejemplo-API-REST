@@ -1,10 +1,11 @@
 import express from "express";
 import cors from "cors";
 import productosRutas from "./rutas/productos.rutas.js";
+import configuracion from "./configuracion.js";
 
 const app = express();
 
-const urlPermitidas = ["http://127.0.0.1:5500"];
+const urlPermitidas = [configuracion.URL_PERMIT_1];
 
 app.use(express.json());
 app.use(cors({
