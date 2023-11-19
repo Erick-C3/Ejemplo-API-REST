@@ -8,13 +8,31 @@ CREATE TABLE IF NOT EXISTS producto (
     nombre VARCHAR(45) DEFAULT NULL,
     precio INT(10) DEFAULT NULL,
     imagen VARCHAR(400) DEFAULT NULL,
+    cantidad INT DEFAULT 0,
     PRIMARY KEY(id)
 );
 
 DESCRIBE producto;
 
-INSERT INTO producto(nombre, precio, imagen) VALUES(
-    "pringles", 1610, "https://carrefourar.vtexassets.com/arquivos/ids/308360-800-auto?v=638144015796400000&width=800&height=auto&aspect=true"
+INSERT INTO producto(nombre, precio, imagen, cantidad) VALUES(
+    "pringles honey mustard",
+    1610,
+    "https://w7.pngwing.com/pngs/29/425/png-transparent-baked-potato-pringles-potato-crisps-potato-chip-flavor-cheese-food-cheese-grocery-store-thumbnail.png",
+    50
+);
+
+INSERT INTO producto(nombre, precio, imagen, cantidad) VALUES(
+    "pringles paprika",
+    2610,
+    "https://img1.freepng.es/20180627/alp/kisspng-hot-dog-pringles-paprika-potato-chip-french-fries-pringles-5b33166fb5bcc9.8572339015300747357444.jpg",
+    30
+);
+
+INSERT INTO producto(nombre, precio, imagen, cantidad) VALUES(
+    "pringles crema y cebolla",
+    3610,
+    "https://www.entuhogar.coca-cola.com.co/media/catalog/product/p/r/pringles-cremacebolla-124gr.png.png?optimize=low&fit=bounds&height=550&width=550&canvas=550:550&format=jpeg",
+    120
 );
 
 UPDATE producto SET nombre = "", precio = "", imagen = "" WHERE id = 3;
