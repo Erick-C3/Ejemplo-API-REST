@@ -3,6 +3,7 @@ CREATE DATABASE IF NOT EXISTS tienda_db;
 
 USE tienda_db;
 
+/* gondola */
 CREATE TABLE IF NOT EXISTS producto (
     id INT(11) NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(45) DEFAULT NULL,
@@ -11,8 +12,6 @@ CREATE TABLE IF NOT EXISTS producto (
     cantidad INT DEFAULT 0,
     PRIMARY KEY(id)
 );
-
-DESCRIBE producto;
 
 INSERT INTO producto(nombre, precio, imagen, cantidad) VALUES(
     "pringles honey mustard",
@@ -34,6 +33,39 @@ INSERT INTO producto(nombre, precio, imagen, cantidad) VALUES(
     "https://www.entuhogar.coca-cola.com.co/media/catalog/product/p/r/pringles-cremacebolla-124gr.png.png?optimize=low&fit=bounds&height=550&width=550&canvas=550:550&format=jpeg",
     120
 );
+
+CREATE TABLE IF NOT EXISTS cliente(
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(45) NOT NULL,
+    email VARCHAR(45) NOT NULL,
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE IF NOT EXISTS compra(
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(45) NOT NULL,
+    precio INT(10) NOT NULL,
+    cantidad INT NOT NULL,
+    cliente_id INT(11) NOT NULL DEFAULT = "eliminado",
+    fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY(id),
+    FOREIGN KEY(cliente_id) REFERENCES cliente(id) ON DELETE SET DEFAULT
+);
+
+
+
+INSERT INTO cliente(nombre, email) VALUES(
+    "Erick",
+    "test@test.com"
+);
+
+
+SELECT * FROM producto;
+SELECT * FROM cliente;
+SELECT * FROM compra;
+
+
+
 
 UPDATE producto SET nombre = "", precio = "", imagen = "" WHERE id = 3;
 
