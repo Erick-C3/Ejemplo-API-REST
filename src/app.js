@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import productosRutas from "./rutas/productos.rutas.js";
 import configuracion from "./configuracion.js";
+import clientesRutas from "./rutas/clientes.rutas.js";
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(cors({
 }));
 
 app.use("/productos/",productosRutas)
+app.use("/clientes/",clientesRutas)
 app.use((req, res)=>{
     res.send("<h1> ERROR: ruta no encontrada</h1>");
 })
