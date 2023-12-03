@@ -46,10 +46,10 @@ CREATE TABLE IF NOT EXISTS compra(
     nombre VARCHAR(45) NOT NULL,
     precio INT(10) NOT NULL,
     cantidad INT NOT NULL,
-    cliente_id INT(11) NOT NULL DEFAULT = "eliminado",
+    cliente_id INT(11),
     fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(id),
-    FOREIGN KEY(cliente_id) REFERENCES cliente(id) ON DELETE SET DEFAULT
+    FOREIGN KEY(cliente_id) REFERENCES cliente(id) ON DELETE SET NULL
 );
 
 
