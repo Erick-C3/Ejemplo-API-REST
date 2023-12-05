@@ -4,6 +4,7 @@ import productosRutas from "./rutas/productos.rutas.js";
 import configuracion from "./configuracion.js";
 import clientesRutas from "./rutas/clientes.rutas.js";
 import comprasRutas from "./rutas/compras.rutas.js";
+import pedidosRutas from "./rutas/pedidos.ruta.js";
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use(cors({
 app.use("/productos/",productosRutas)
 app.use("/clientes/",clientesRutas)
 app.use("/compras/",comprasRutas)
+app.use("/pedidos/",pedidosRutas)
 
 
 app.use((req, res)=>{
