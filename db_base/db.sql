@@ -66,9 +66,9 @@ SELECT * FROM compra;
 
 
 
-
+/* 
 UPDATE producto SET nombre = "", precio = "", imagen = "" WHERE id = 3;
 
 DELETE FROM producto WHERE id = 5;
 
-SELECT * FROM producto;
+SELECT * FROM producto; */

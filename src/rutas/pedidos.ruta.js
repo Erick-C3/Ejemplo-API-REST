@@ -4,7 +4,7 @@ import pedidosControladores from "../controladores/pedidos.controladores.js";
 const ruta = Router();
 
 
-/* ruta.get("", pedidosControladores.obtenerPedido); */
+ruta.get("", pedidosControladores.obtenerPedidos);
 /* ruta.get("/api", ); */
 /* ruta.get("/:id", pedidosControladores.obtenerPedido); */
 ruta.post("", pedidosControladores.crearPedido);
