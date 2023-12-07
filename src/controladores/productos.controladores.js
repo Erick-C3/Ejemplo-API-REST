@@ -94,8 +94,8 @@ async function crearProducto (req, res){
 async function actualizarProducto (req, res){
     const ID = req.params.id;
     try {
-        const {nombre, precio, imagen} = req.body;
-        const [info] = await pool.query(`UPDATE producto SET nombre = ?, precio = ?, imagen = ? WHERE id = ?;`, [nombre, precio, imagen, ID]);
+        const {nombre, precio, imagen, cantidad} = req.body;
+        const [info] = await pool.query(`UPDATE producto SET nombre = IFNULL(?, nombre), precio = IFNULL(?, precio), imagen = IFNULL(?, imagen), cantidad = IFNULL(?, cantidad) WHERE id = ?;`, [nombre, precio, imagen, cantidad, ID]);
         if (info.affectedRows !== 1 || info.warningStatus) {
             res.status(404).json({
                 info: "Error al actualizar el producto con id: "+ID
